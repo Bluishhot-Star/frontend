@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/413c7f2129.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="view-container">
+            <div class="op-view"></div>
+            <div class="num-view"></div>
+        </div>
+        <div class="button-container">
+            <div class="operator-container btn">
+                <button id="+">+</button>
+                <button id="-">-</button>
+                <button id="/">/</button>
+                <button id="*">X</button>
+            </div>
+            <div class="number-container">
+                <div class="top-number-container btn">
+                    <button id="7">7</button>
+                    <button id="8">8</button>
+                    <button id="9">9</button>
+                    <button id="Backspace" class="delete"><i class="fas fa-arrow-left"></i></button>
+                </div>
+                <div class="top-number-container btn">
+                    <button id="4">4</button>
+                    <button id="5">5</button>
+                    <button id="6">6</button>
+                    <button id="c" class="clear"">C</button>
+                </div>
+                <div class="withEqual">
+                    <div class="notEqual">
+                        <div class="bottom-button-container btn">
+                            <button id="1">1</button>
+                            <button id="2">2</button>
+                            <button id="3">3</button>
+                        </div>
+                        <div class="bottom-button-container btn">
+                            <button id="0" class="zero">0</button>
+                            <button id="." class="dot">.</button>
+                        </div>
+                    </div>
+                    <button id="=" class="equal">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let NumOne = '';
+        let NumTwo = '';
+        let operator = '';
+        let view_text = '';
+        let beforeInput ='';
+        let isOpInput = false;
+        let isEqualInput = false;
+        let isDotInput = false;
+        const calculate = (num1, op, num2)=>{
+            let sum = '';
+            switch (op) {
+                case '+':
+                    sum = Number(num1) + Number(num2);
+                    break;
+                case '-':
+                    sum = num1 - num2;
+                    break;
+                case '/':
+                    if(num2 === '0'){ sum = 'NaN'; break; }
+                    sum = Number(Number(num1) / Number(num2));
+                    break;
+                case '*':
+                    sum = Number(Number(num1) * Number(num2));
+                    break;
+                default:
+                    break;
+            }
+            return eval(sum);
+        }
+
+        const func = (input, $view)=>{
+            if(input){
+                if(input=='.' || (48 <= (input).charCodeAt() && (input).charCodeAt() <= 57)){
+                    if(input == '.'){
+                        if(isDotInput == true) return;
+                        isDotInput = true;
+                    }
+                    
+                    if(!isOpInput){
+                        NumOne += input;
+                    }
+                    else{
+                        // $view.textContent='';
+                        NumTwo += input;
+                    }
+                    if(isEqualInput && !isOpInput){$view.textContent=''; NumOne = ''; isEqualInput=false;}
+                    // view_text = $view.textContent;
+                    // $view.textContent = view_text + input;
+                }else if(input == '='){
+                    if(operator !== ''){
+                        if(NumTwo !== ''){
+                            NumOne = calculate(NumOne,operator,NumTwo);
+                            isOpInput=false;
+                            isEqualInput = true;
+                            isDotInput = false;
+                            $view.textContent = NumOne;
+                            return;
+                        }
+                        else return;
+                    }
+                    else return;
+                }else if(input == 'Backspace'){
+                    let temp = $view.textContent;
+                    if (temp == '0') return;
+                    else if (temp.length == 1) temp = '0';
+                    else temp = temp.slice(0,temp.length-1);
+
+                    if(!isOpInput){
+                        NumOne = temp;
+                        view_text = NumOne;
+                    }
+                    else{
+                        NumTwo = temp;
+                        view_text = NumTwo;
+                    }
+
+                    $view.textContent = temp;
+                    return;
+                }else if(input == 'c'){
+                    NumOne = '';
+                    NumTwo = '';
+                    operator = '';
+                    view_text = '';
+                    isOpInput = false;
+                    isEqualInput = false;
+                    $view.textContent = '';
+                    return;
+                }
+                else{
+                    operator = input;
+                    isOpInput = true;
+                    isDotInput = false;
+                    if(isEqualInput){
+                        isEqualInput = '';
+                        // NumOne = calculate(NumOne,operator,NumTwo);
+                    }
+                    else if (NumTwo !== ''){
+                        NumOne = calculate(NumOne,operator,NumTwo);
+                    }
+                    NumTwo = '';
+                    if (parseInt(view_text[view_text.length-1]) !== NaN) {
+                        view_text.slice(0,view_text.length-1);
+                    }
+                }
+                view_text = $view.textContent;
+                $view.textContent = view_text + input;
+            }
+        }
+
+        /*======EventListener======*/
+        const eventFunc = (event) => {
+            const $view = document.querySelector(".num-view");
+            const $op = document.querySelector(".op-view");
+            let target = '';
+            if(event.type == 'click'){target = event.target.id}
+            else{
+                const key = document.getElementById(event.key);
+                if(!key) return;
+                if(event.type == 'keydown'){
+                    if(46==(event.key).charCodeAt(0) || (48 <= (event.key).charCodeAt() && (event.key).charCodeAt() <= 57)){
+                        key.classList.add('pressed');
+                    }else if((event.key).charCodeAt(0) == 61){
+                        key.classList.add('pressed_equal' || event.key == 'c');
+                    }else if(event.key == 'Backspace'){
+                        key.classList.add('pressed');
+                    }
+                    else{
+                        key.classList.add('pressed_op');
+                    }
+                    target = event.key
+                }
+                else if(event.type == 'keyup'){
+                    if(46==(event.key).charCodeAt(0) || (48 <= (event.key).charCodeAt() && (event.key).charCodeAt() <= 57)) key.classList.remove('pressed');
+                    else if((event.key).charCodeAt(0) == 61) key.classList.remove('pressed_equal');
+                    else if(event.key == 'Backspace' || event.key == 'c') key.classList.remove('pressed');
+                    else key.classList.remove('pressed_op');
+                    return;
+                }
+            }
+            func(target,$view);
+        };
+        window.addEventListener("keydown", (event) => {eventFunc(event);});
+        window.addEventListener("keyup", (event) => {eventFunc(event);});
+        document.getElementById('0').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('1').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('2').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('3').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('4').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('5').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('6').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('7').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('8').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('9').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('+').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('-').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('*').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('/').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('Backspace').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('c').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('=').addEventListener('click', (event)=> {eventFunc(event);});
+        document.getElementById('.').addEventListener('click', (event)=> {eventFunc(event);});
+    </script>
+</body>
+</html>

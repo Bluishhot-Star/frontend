@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'LAB디지털';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* { 
+    box-sizing: border-box;
+}
+.stack { 
+    font-size: 0.6rem;
+}
+button {
+    width: 25%;
+    height: 100%;
+    background: #555;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #000;
+}
+button:active{
+    background: #666;
+    box-shadow: 1px 1px 1px 1px #555 inset;
+}
+.calculator-container { 
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    width: 230px;
+    height: 350px;
+    background: slategray;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px 2px #555;
+}
+.view-container { 
+    border: 1px solid #000;
+    width: 200px;
+    height: 50px;
+    background:darkslategrey;
+}
+.op-view {
+    text-align: right;
+    height: 10%;
+    width: 100%;
+}
+.num-view {
+    text-align: right;
+    width: 100%;
+    height: 90%;
+    line-height: 50px;
+    font-family: 'LAB디지털';
+    font-size: 1.4rem;
+}
+.button-container {
+    width: 200px;
+}
+.btn { 
+    height: 50px;
+}
+.operator-container { 
+    width: 100%;
+    display: flex;
+}
+.operator-container>button { 
+    background: orange;
+}
+.operator-container button:active { 
+    background: rgb(255, 177, 31);
+    box-shadow: 1px 1px 1px 1px rgb(204, 141, 24) inset;
+    
+}
+.number-container { 
+    width: 100%;
+}
+.top-number-container {
+    /* width: 100%; */
+    display: flex;
+}
+.withEqual { 
+    margin: 0;
+    display: flex;
+    width: 100%;
+    height: 100px;
+}
+
+.bottom-button-container {
+    margin: 0;
+    width: 150px;
+    display: flex;
+}
+.bottom-button-container button { 
+    width: 33.333333%;
+}
+.bottom-button-container .zero { 
+    width: 67.6666%;
+}
+
+.withEqual .equal {
+    background: orangered;
+}
+.equal:active { 
+    background: rgb(240, 70, 40);
+    box-shadow: 1px 1px 1px 1px rgb(197, 54, 28) inset;
+}
+.pressed { 
+    background: #666;
+    box-shadow: 1px 1px 1px 1px #555 inset;
+}
+.operator-container .pressed_op {
+    background: rgb(255, 177, 31);
+    box-shadow: 1px 1px 1px 1px rgb(204, 141, 24) inset;
+}
+.pressed_equal {
+    background: rgb(240, 70, 40);
+    box-shadow: 1px 1px 1px 1px rgb(197, 54, 28) inset;
+}
+input{ 
+    all: unset;
+}
