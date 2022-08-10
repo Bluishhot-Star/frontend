@@ -85,6 +85,14 @@
         const func = (input, $view)=>{
             if(input){
                 if(input=='.' || (48 <= (input).charCodeAt() && (input).charCodeAt() <= 57)){
+                    if(isEqualInput){
+                        NumOne = '';
+                        NumTwo = '';
+                        operator = '';
+                        isOpInput=false;
+                        isEqualInput=false;
+                        $view.textContent='';
+                    }
                     if(input == '.'){
                         if(isDotInput == true) return;
                         isDotInput = true;
@@ -96,7 +104,6 @@
                     else{
                         NumTwo += input;
                     }
-                    if(isEqualInput && !isOpInput){$view.textContent=''; NumOne = ''; isEqualInput=false;}
                 }else if(input == '='){
                     if(operator !== ''){
                         if(NumTwo !== ''){
@@ -110,12 +117,12 @@
                         else return;
                     }
                     else return;
-                }else if(input == 'Backspace'){
-                    let temp = $view.textContent;
-                    if (temp == '0') return;
-                    else if (temp.length == 1) temp = '0';
-                    else temp = temp.slice(0,temp.length-1);
-
+                }else if(input == 'Backspace'){ //지우기
+                    let temp = $view.textContent; //현재 텍스트
+                    if (temp == '0') return; //0일 경우 그대로
+                    else if (temp.length == 1) temp = '0'; //1의 자리일 경우 지우면 0
+                    else temp = temp.slice(0,temp.length-1); //끝자리 하나 지우기
+                    
                     if(!isOpInput){
                         NumOne = temp;
                         view_text = NumOne;
@@ -124,37 +131,29 @@
                         NumTwo = temp;
                         view_text = NumTwo;
                     }
-
                     $view.textContent = temp;
                     return;
-                }else if(input == 'c'){
+                }else if(input == 'c'){ //초기화 버튼
                     NumOne = '';
                     NumTwo = '';
                     operator = '';
-                    view_text = '';
                     isOpInput = false;
                     isEqualInput = false;
                     $view.textContent = '';
                     return;
                 }
-                else{
+                else{ //연산자 버튼
+                    // 연속 연산
+                    if (NumTwo !== ''){
+                        NumOne = calculate(NumOne,operator,NumTwo);
+                    }
+                    // 앞의 식 계산 후 새로운 연산자 삽입
+                    NumTwo = '';
                     operator = input;
                     isOpInput = true;
                     isDotInput = false;
-                    if(isEqualInput){
-                        isEqualInput = '';
-                        // NumOne = calculate(NumOne,operator,NumTwo);
-                    }
-                    else if (NumTwo !== ''){
-                        NumOne = calculate(NumOne,operator,NumTwo);
-                    }
-                    NumTwo = '';
-                    if (parseInt(view_text[view_text.length-1]) !== NaN) {
-                        view_text.slice(0,view_text.length-1);
-                    }
                 }
-                view_text = $view.textContent;
-                $view.textContent = view_text + input;
+                $view.textContent += input;
             }
         }
 
