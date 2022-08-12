@@ -1,0 +1,120 @@
+<!-- 숫자야구
+컴퓨터
+1. 숫자 4개 랜덤 / 리스트로 처리
+2. 숫자 입력 -> 각 자리마다 div
+    입력 O  : 다음으로
+    입력 X : 예외처리 / 입력 X
+3. 입력받은 숫자& 자리 비교
+    비교결과 출력 후 div 초기화
+    log 보여주기
+4. 맞은 경우 축하! & 점수 표시
+5. 다시하기 가능 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/413c7f2129.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="head-container">
+            <div class="head-wrapper">
+                <i class="fas fa-bullhorn"></i> _
+                <div class="head">이름을 입력하세요</div>
+            </div>
+        </div>
+        <div class="view-container">
+            <div class="view"></div>
+        </div>
+        <div class="input-container">
+            <div class="number-container">
+                <div class="number-wrapper">
+                    <div class="door"></div>
+                    <div id="num1" class="number"></div>
+                </div>
+                <div class="number-wrapper">
+                    <div class="door"></div>
+                    <div id="num2" class="number"></div>
+                </div>
+                <div class="number-wrapper">
+                    <div class="door"></div>
+                    <div id="num3" class="number"></div>
+                </div>
+                <div class="number-wrapper">
+                    <div class="door"></div>
+                    <div id="num4" class="number"></div>
+                </div>
+            </div>
+            <div class="btn-container">
+                <div class="btn-wrapper">
+                    <button class="number-btn">Go!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const $num1 = document.querySelector('#num1');
+        const $num2 = document.querySelector('#num2');
+        const $num3 = document.querySelector('#num3');
+        const $num4 = document.querySelector('#num4');
+        const $button = document.querySelector('.number-btn');
+        const valueList = [$num1, $num2, $num3, $num4];
+        const numList = [];
+        const updateNumber = ()=>{
+            $num1.textContent = numList[0];
+            $num2.textContent = numList[1];
+            $num3.textContent = numList[2];
+            $num4.textContent = numList[3];
+            
+            for (let i = 0; i <= 3; i++) {
+                if (valueList[i].textContent !== ''){
+                    valueList[i].classList.add('filled');
+                }
+                else {
+                    valueList[i].classList.remove('filled');
+                }
+                
+            }
+        }
+        window.addEventListener('keydown',(event)=> {
+            console.log(event);
+            if(event.key >= 0 && event.key <= 9){
+                if(numList.length < 4){
+                    if(!numList.includes(event.key)) numList.push(event.key);
+                }
+            }
+            else if(event.key === 'Backspace'){
+                if(numList.length !== 0){
+                    numList.pop();
+                }
+            }
+            else if(event.key === 'c'){
+                for (let i = 0; i <= 3; i++) {
+                    valueList[i].parentElement.classList.remove("close");
+                    valueList[i].parentElement.classList.add("open");
+                }
+            }
+            updateNumber();
+        });
+
+        $button.addEventListener('click', (event)=> {
+            if(numList.length == 4){
+                console.log('hi')
+                for (let i = 0; i <= 3; i++) {
+                    console.log(i);
+                    valueList[i].parentElement.classList.add("close");
+                    valueList[i].parentElement.classList.remove("open");
+                    numList.pop();
+                }
+            }
+        });
+
+        // 숫자 야구
+    </script>
+</body>
+</html>

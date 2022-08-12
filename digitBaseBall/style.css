@@ -1,0 +1,200 @@
+@font-face {
+    font-family: 'HBIOS-SYS';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+* { 
+    box-sizing: border-box;
+    font-family: 'HBIOS-SYS';
+}
+html, body{
+    height: 100%;
+    background: #000;
+    -webkit-transform: perspective(500px);
+    -webkit-transform-style: preserve-3d;
+}
+.main-container{ 
+    height: 60%;
+    margin: 10% 20%; 
+    background:rgb(95, 116, 58);
+}
+.head-container{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 10px solid #111;
+}
+.head-wrapper { 
+    width: 100%;
+    height: 60%;
+}
+.head-wrapper i{ 
+    margin-left: 1%;
+}
+.head { 
+    width: 100%;
+    height: 70%;
+    line-height: 7vh;
+    text-align: center;
+    font-size: 3.3vh;
+}
+
+.input-container{
+    height: 60%;
+}
+.number-container{
+    position: relative;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.number-wrapper { 
+    position: relative;
+    width: 20%;
+    height: 50%;
+    /* overflow: hidden; */
+    /* margin: -10px; */
+}
+.number{ 
+    height: 100%;
+    border: 5px solid #000;
+    text-align: center;
+    text-decoration:underline;
+    font-size: 2rem;
+    line-height: 10vh;
+}
+.filled{
+    background: rgb(255, 136, 0);
+    box-shadow: inset -5px -5px rgb(255, 115, 0);
+}
+
+
+@keyframes open{
+    0%   {height: 0;}
+    100% { height: 100%; }
+}
+/* @keyframes close{
+    0%   {
+        transform: none; 
+        box-shadow: none;
+    }
+    100% { 
+        transform: perspective(500px) rotateX(89deg); 
+        
+        box-shadow: 0 5px #fff;
+        transform: rotate3d(1, 0, 0, 90deg);
+    }
+}
+ */
+
+
+.btn-container{
+    /* padding: 20%; */
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-wrapper{
+    box-sizing: border-box;
+    background: rgb(255, 204, 0);
+    position: relative;
+    width: 30%;
+    height: 100%;
+}
+.number-btn{ 
+    all:unset;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #000;
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: inset -3px -3px orange;
+}
+.number-btn:hover { 
+    background: rgb(238, 190, 0);
+}
+.number-btn:active { 
+    box-shadow: inset 3px 3px orange;
+}
+.btn-wrapper::before,
+.btn-wrapper::after,
+.btn-wrapper .number-btn::before,
+.btn-wrapper .number-btn::after{
+    content: '';
+    width: 6px;
+    height: 6px;
+    display: block;
+    position: absolute;
+    background:rgb(95, 116, 58);
+    /* background:rgb(175, 191, 149); */
+}
+.btn-wrapper::before{ top: -3px; left: -3px; }
+.btn-wrapper::after{ top: -3px; right: -3px; }
+.btn-wrapper .number-btn::before{ bottom: -3px; left: -3px; }
+.btn-wrapper .number-btn::after{ bottom: -3px; right: -3px; }
+
+
+/*====== 3D Transition Effect ======*/
+.number-wrapper::after {
+    background: #222;
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    -webkit-transform:perspective(400px) rotateX(-90deg);
+    -webkit-transform-origin: 100% 50%;
+}
+.number-wrapper::before {
+    z-index: -10;
+    background: #222;
+    content: '';
+    bottom: 0;
+    height: 5px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.close { 
+    animation: close 1s;
+    transform: perspective(400px) rotateX(90deg);
+    -webkit-transition: .5s linear;
+    -webkit-transform-style: preserve-3d;
+}
+
+.open { 
+    animation: open 1s;
+    transform: none;
+    -webkit-transition: .5s linear;
+    -webkit-transform-style: preserve-3d;
+}
+
+@keyframes close{
+    0%   {
+        transform: none; 
+        box-shadow: none;
+    }
+    100% { 
+        transform: perspective(400px) rotateX(90deg);
+    }
+}
+
+@keyframes open{
+    0% { 
+        transform: perspective(400px) rotateX(90deg); 
+    }
+    100%   {
+        transform: none; 
+    }
+}
