@@ -1,14 +1,16 @@
-<!-- 숫자야구
-컴퓨터
-1. 숫자 4개 랜덤 / 리스트로 처리
-2. 숫자 입력 -> 각 자리마다 div
-    입력 O  : 다음으로
-    입력 X : 예외처리 / 입력 X
-3. 입력받은 숫자& 자리 비교
-    비교결과 출력 후 div 초기화
-    log 보여주기
-4. 맞은 경우 축하! & 점수 표시
-5. 다시하기 가능 -->
+<!--
+    숫자야구
+    컴퓨터
+    1. 숫자 4개 랜덤 / 리스트로 처리
+    2. 숫자 입력 -> 각 자리마다 div
+        입력 O  : 다음으로
+        입력 X : 예외처리 / 입력 X
+    3. 입력받은 숫자& 자리 비교
+        비교결과 출력 후 div 초기화
+        log 보여주기
+    4. 맞은 경우 축하! & 점수 표시
+    5. 다시하기 가능 
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +23,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- <input type="button" value="팝업창 호출" /> -->
     <div class="main-container">
         <div class="head-container">
             <div class="head-wrapper">
@@ -32,44 +35,61 @@
             <div class="view"></div>
         </div>
         <div class="input-container">
-            <div class="number-container">
+            <div class="order-container">
+                <div class="order none"></div>
+                <div class="next-wrapper">
+                    <button class="next none">></button>
+                </div>
+            </div>
+            <div class="number-container none">
                 <div class="number-wrapper">
                     <div class="door"></div>
                     <div id="num1" class="number"></div>
                 </div>
-                <div class="number-wrapper">
+                <div class="number-wrapper none">
                     <div class="door"></div>
                     <div id="num2" class="number"></div>
                 </div>
-                <div class="number-wrapper">
+                <div class="number-wrapper none">
                     <div class="door"></div>
                     <div id="num3" class="number"></div>
                 </div>
-                <div class="number-wrapper">
+                <div class="number-wrapper none">
                     <div class="door"></div>
                     <div id="num4" class="number"></div>
                 </div>
             </div>
             <div class="btn-container">
                 <div class="btn-wrapper">
-                    <button class="number-btn">Go!</button>
+                    <button class="number-btn start">Start!</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        const $head = document.querySelector('.head');
         const $num1 = document.querySelector('#num1');
         const $num2 = document.querySelector('#num2');
         const $num3 = document.querySelector('#num3');
         const $num4 = document.querySelector('#num4');
         const $button = document.querySelector('.number-btn');
+        const $order = document.querySelector('.order');
+        const $next = document.querySelector('.next');
+        let order = 1;
+        let success = false;
         const valueList = [$num1, $num2, $num3, $num4];
-        const numList = [];
+        const numberInput = [];
+        const randomList = [];
+        const stageNumber = 1;
+        const resultObject = {
+            S : 0,
+            B : 0,
+        };
         const updateNumber = ()=>{
-            $num1.textContent = numList[0];
-            $num2.textContent = numList[1];
-            $num3.textContent = numList[2];
-            $num4.textContent = numList[3];
+            $num1.textContent = numberInput[0];
+            $num2.textContent = numberInput[1];
+            $num3.textContent = numberInput[2];
+            $num4.textContent = numberInput[3];
             
             for (let i = 0; i <= 3; i++) {
                 if (valueList[i].textContent !== ''){
@@ -78,43 +98,123 @@
                 else {
                     valueList[i].classList.remove('filled');
                 }
-                
             }
+        }
+
+        // 숫자 야구
+        let textList = [
+            '<숫자 야구 게임>',
+            '숫자를 입력하세요',
+            '정답!', '실패'
+            ];
+
+        // 한 글자씩 출력
+        function show(letter){
+            $head.innerHTML = '';
+            for (let i = 0; i < letter.length; i++) {
+                setTimeout(() => {
+                    $head.innerHTML += letter[i];
+                }, (i + 1) * 120);
+            }   
         }
         window.addEventListener('keydown',(event)=> {
             console.log(event);
             if(event.key >= 0 && event.key <= 9){
-                if(numList.length < 4){
-                    if(!numList.includes(event.key)) numList.push(event.key);
+                if(numberInput.length < 4){
+                    if(!numberInput.includes(event.key)) numberInput.push(event.key);
                 }
             }
             else if(event.key === 'Backspace'){
-                if(numList.length !== 0){
-                    numList.pop();
-                }
-            }
-            else if(event.key === 'c'){
-                for (let i = 0; i <= 3; i++) {
-                    valueList[i].parentElement.classList.remove("close");
-                    valueList[i].parentElement.classList.add("open");
+                if(numberInput.length !== 0){
+                    numberInput.pop();
                 }
             }
             updateNumber();
         });
-
         $button.addEventListener('click', (event)=> {
-            if(numList.length == 4){
-                console.log('hi')
+            if(numberInput.length == 4){
+                confirmNumber();
+                let number = numberInput.join('');
                 for (let i = 0; i <= 3; i++) {
                     console.log(i);
                     valueList[i].parentElement.classList.add("close");
                     valueList[i].parentElement.classList.remove("open");
-                    numList.pop();
+                    numberInput.pop();
                 }
+                show(`${number} => ${resultObject.S}S ${resultObject.B}B`);
+                $next.classList.add("exist");
+                $next.classList.remove("none");
+                if (resultObject.S == 4) {
+                    setTimeout(() => {
+                        Success();
+                    },  3000);
+                    return;
+                }
+                $next.addEventListener('click', (event)=>{
+                    for (let i = 0; i <= 3; i++) {
+                        valueList[i].parentElement.classList.remove("close");
+                        valueList[i].parentElement.classList.add("open");
+                        $next.classList.add("none");
+                        $next.classList.remove("exist");
+                    }
+                    $order.textContent = order;
+                    updateNumber();
+                });
+            }
+        });
+        $button.addEventListener('click', ()=>{
+            if($button.classList.contains('start')){ //시작!
+                $order.classList.remove("none");
+                $order.classList.add("exist");
+                $order.textContent = order;
+
+                $button.textContent = 'Go!';
+                $button.classList.remove('start');
+                for (let i = 0; i <= 3; i++) {
+                    valueList[i].parentElement.classList.remove("none");
+                    valueList[i].parentElement.classList.add(`exist${i+1}`);
+                }
+                show(textList[1]);
             }
         });
 
-        // 숫자 야구
+        const Success = () => {
+            show(textList[2]);
+        }
+        const randomDigit = () => {
+            while (randomList.length < 4) {
+                let number = Math.floor(Math.random()*9);
+                if (randomList.includes(number)) {
+                    continue;
+                }
+                randomList.push(number);
+            }
+        };
+        const confirmNumber = () => {
+            console.log(numberInput);
+            console.log(randomList);
+            resultObject.S = 0;
+            resultObject.B = 0;
+            for (let i = 0; i < 4; i++) {
+                let check = randomList.indexOf(Number(numberInput[i]));
+                if(check != -1){
+                    if (check == i) {
+                        console.log(resultObject.S);
+                        resultObject.S += 1;
+                    } else {
+                        resultObject.B += 1;
+                    }
+                }
+            }
+            order += 1;
+            console.log(resultObject);
+        };
+        const Start = () => {
+            show(textList[0]);
+            randomDigit();
+        }
+
+        Start();
     </script>
 </body>
 </html>

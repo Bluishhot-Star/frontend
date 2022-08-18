@@ -15,7 +15,7 @@ html, body{
     -webkit-transform-style: preserve-3d;
 }
 .main-container{ 
-    height: 60%;
+    height: 65%;
     margin: 10% 20%; 
     background:rgb(95, 116, 58);
 }
@@ -42,24 +42,100 @@ html, body{
     text-align: center;
     font-size: 3.3vh;
 }
-
 .input-container{
     height: 60%;
 }
+.order-container{
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
 .number-container{
     position: relative;
-    height: 70%;
+    height: 60%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    align-items: center;
 }
 .number-wrapper { 
     position: relative;
     width: 20%;
     height: 50%;
-    /* overflow: hidden; */
-    /* margin: -10px; */
 }
+.order { 
+    position: relative;
+    width: 5vh;
+    height: 5vh;
+    background: rgb(255, 179, 0);
+    border-radius: 0 0 50px 0;
+    border-bottom: 2vh solid #111 transparent;
+    text-align: center;
+    font-size: 1.5rem;
+    padding-right: 1vh;
+}
+.order::after { 
+    position: absolute;
+    content: '';
+    border-radius: 0 0 50px 0;
+    top: 0;
+    left: 0;
+    width: 5vh;
+    height: 5vh;
+    border-bottom: 3px solid #111;
+}
+.order::before { 
+    position: absolute;
+    content: '';
+    border-radius: 0 0 50px 0;
+    top: 0;
+    left: 0;
+    width: 4.7vh;
+    height: 5vh;
+    border-right: 4px solid #111;
+}
+.next-wrapper {
+    box-sizing: border-box;
+    position: relative;
+    margin: 2px;
+}
+.next{
+    all:unset;
+    display: block;
+    box-sizing: border-box;
+    width: 4vh;
+    height: 4vh;
+    border: 3px solid #000;
+    font-size: 1.5rem;
+    text-align: center;
+    background: rgb(0, 145, 19);
+    box-shadow: inset -2px -2px rgb(4, 112, 19);
+    font-size: 1.2rem;
+    color: #eee;
+}
+.next:hover{
+    background: rgb(5, 128, 21);
+}
+.next:active{
+    box-shadow: inset 2px 2px rgb(4, 112, 19);
+}
+.next-wrapper::before,
+.next-wrapper::after,
+.next-wrapper .next::before,
+.next-wrapper .next::after{
+    position: absolute;
+    box-sizing: border-box;
+    content: '';
+    width: 3px;
+    height: 3px;
+    display: block;
+    background:rgb(95, 116, 58);
+}
+.next-wrapper::before{ top: 0px; left: 0px; }
+.next-wrapper::after{ top: 0px; right: 0px; }
+.next-wrapper .next::before{ bottom: -5px; left: 0px; }
+.next-wrapper .next::after{ bottom: -5px; right: 0px; }
+
 .number{ 
     height: 100%;
     border: 5px solid #000;
@@ -67,7 +143,9 @@ html, body{
     text-decoration:underline;
     font-size: 2rem;
     line-height: 10vh;
+    background:rgb(190, 233, 115);
 }
+
 .filled{
     background: rgb(255, 136, 0);
     box-shadow: inset -5px -5px rgb(255, 115, 0);
@@ -124,6 +202,18 @@ html, body{
 .number-btn:active { 
     box-shadow: inset 3px 3px orange;
 }
+.start{
+    color: #fff;
+    background: rgb(255, 0, 0);
+    box-shadow: inset -3px -3px rgb(185, 0, 0);
+}
+.start:hover {
+    background: rgb(218, 8, 8);
+}
+.start:active {
+    box-shadow: inset 3px 3px rgb(185, 0, 0);
+}
+/*======8bit Style======*/
 .btn-wrapper::before,
 .btn-wrapper::after,
 .btn-wrapper .number-btn::before,
@@ -141,6 +231,28 @@ html, body{
 .btn-wrapper .number-btn::before{ bottom: -3px; left: -3px; }
 .btn-wrapper .number-btn::after{ bottom: -3px; right: -3px; }
 
+.none{
+    visibility: hidden;
+}
+.exist{
+    visibility: visible;
+}
+.exist1{
+    animation: move1 1s;
+    visibility:visible;
+}
+.exist2{
+    animation: move2 1s;
+    visibility:visible;
+}
+.exist3{
+    animation: move3 1s;
+    visibility:visible;
+}
+.exist4{
+    animation: move4 1s;
+    visibility:visible;
+}
 
 /*====== 3D Transition Effect ======*/
 .number-wrapper::after {
@@ -180,21 +292,10 @@ html, body{
     -webkit-transform-style: preserve-3d;
 }
 
-@keyframes close{
-    0%   {
-        transform: none; 
-        box-shadow: none;
-    }
-    100% { 
-        transform: perspective(400px) rotateX(90deg);
-    }
-}
+@keyframes close{0% {transform: none; box-shadow: none;} 100% { transform: perspective(400px) rotateX(90deg);}}
+@keyframes open{0% { transform: perspective(400px) rotateX(90deg); } 100% {transform: none; }}
 
-@keyframes open{
-    0% { 
-        transform: perspective(400px) rotateX(90deg); 
-    }
-    100%   {
-        transform: none; 
-    }
-}
+@keyframes move1{0% {transform: translate(200%, 0);} 100% {transform: translate(0, 0);}}
+@keyframes move2{0% {transform: translate(50%, 0);} 100% {transform: translate(0, 0);}}
+@keyframes move3{0% {transform: translate(-50%, 0);} 100% {transform: translate(0, 0);}}
+@keyframes move4{0% {transform: translate(-200%, 0);} 100% {transform: translate(0, 0);}}
