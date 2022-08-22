@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="question"></div>
+    
+    <div id="result"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        'use strict';
+        // let randomList = [];
+        // const randomNumber = () => {
+        //     randomList = [];
+        //     for (let i = 0; i < 2; i++) {
+        //         let number = Math.floor(Math.random()*9 + 1);
+        //         randomList.push(number);
+        //     }
+        // }
+        const Question = () => {
+            randomNumber();
+            return (
+                `${randomList[0]} 곱하기 ${randomList[1]}는?`
+            );
+        }
+        const GuGuDan = () => {
+            let [first,setFirst] = React.useState(Math.floor(Math.random()*9+1));
+            let [second,setSecond] = React.useState(Math.floor(Math.random()*9+1));
+            let [result,setResult] = React.useState('');
+            let [value,setValue] = React.useState('');
+
+            const onSubmit = (e) =>{
+                e.preventDefault();
+                if(parseInt(value)=== first*second){
+                    setResult('정답!');
+                    setFirst(Math.floor(Math.random()*9+1));
+                    setSecond(Math.floor(Math.random()*9+1));
+                    value = '';
+                }else{
+                    setResult('땡!');
+                    value = '';
+                }
+            };
+
+            return(
+                <div>
+                    <div>{first} 곱하기 {second}는?</div>
+                    <form onSubmit={onSubmit}>
+                        <input type="number" value={value} onChange={(e)=>{setValue(e.target.value)}}/>
+                        <button>입력</button>
+                    </form>
+                    <div>{result}</div>
+                </div>
+            )
+        };
+    </script>
+    <script type="text/babel">
+        ReactDOM.createRoot(document.querySelector('#question')).render(
+            <GuGuDan/>
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel"> //XML을 읽을 수 있도록 babel 패키지를 가져온다
+        'use strict';
+
+        const e = React.createElement;
+
+        class LikeButton extends React.Component { //컴포넌트: 데이터와 화면을 하나로 묶어놓은 덩어리
+            constructor(props) {
+                super(props);
+                this.state = {liked: false}; //state : 데이터, 화면의 바꾸는 부분 -> 달라질 부분을 state로 정의하면 된다!
+            }
+
+            render() {
+                if (this.state.liked) {
+                    return 'You liked this.';
+                }
+                // React Tip.
+                // <<객체를 함부로 바꾸지 말 것! 대신 복사하기>>
+                // 리엑트에서는 배열이나 객체 등에 직접 접근하는 것은 지양해야한다.
+                // 예시.
+                // pop, push, shift, unshift, splice => 배열을 직접적으로 수정 (사용X)
+                // concat, slice => 새로운 배열 생성 (사용가능!)
+                return ( 
+                    <button onClick={()=>{
+                        this.setState({liked:true}) // setState함수 사용.. 객체에 직접 접근X
+                    }}>
+                        Like
+                    </button>
+                );
+            }
+        }
+    </script>
+    <script type="text/babel">
+        ReactDOM.createRoot(document.querySelector('#root')).render(
+                <LikeButton/>
+        );
+    </script>
+</body>
+</html>
