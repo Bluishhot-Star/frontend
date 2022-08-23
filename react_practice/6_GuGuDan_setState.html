@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <div id="result"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        'use strict';
+
+        class GuGuDan extends React.Component{
+            state = {
+                first : Math.floor(Math.random()*9+1),
+                second : Math.floor(Math.random()*9+1),
+                value : '',
+                result : '',
+            };
+
+            // React Tip!
+            // <<이전 state를 활용해야하는 경우>>에는 setState에 화살표 함수를 넣어준다!
+            // 이 함수는 prevState를 받은 뒤, 그에 대한 return해주는 함수이다.
+
+            onSubmit = (e)=>{
+                e.preventDefault();
+                if (parseInt(this.state.value) === this.state.first * this.state.second){
+                    this.setState((prevState)=>{
+                        return {
+                            result: '정답 : ' + prevState.value,
+                            value: '',
+                            first: Math.floor(Math.random()*9+1),
+                            second: Math.floor(Math.random()*9+1),
+                        };
+                    });
+                    this.input.focus(); 
+                }else {
+                    this.setState({
+                        result: '땡!',
+                        value: '',
+                    });
+                    this.input.focus();
+                }
+            }
+            onChange = (e) =>{
+                this.setState({value : e.target.value})
+            }
+            input;
+            //ref 메서드를 정의하면 요소에 접근할 수 있다.
+            onRefInput = (c) => {this.input = c};
+            // <중요!!!> setState를 할 때에는 render()함수가 실행된다. 즉, 상태에 변화가 있을 때마다 실행됨
+            // 이는 성능최적화 시에 중요한 문제이다.
+            // 메서드 등을 활용하는 것도 좋은 방법
+            render() {
+                return(// 가짜태그 Fragment 활용하기!
+                    <React.Fragment>
+                        <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+                        <form onSubmit={this.onSubmit}>
+                            <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange}/>
+                            <button>입력</button>
+                        </form>
+                        <div>{this.state.result}</div>
+                    </React.Fragment>
+                );
+            }
+        }
+    </script>
+    <script type="text/babel">
+        ReactDOM.createRoot(document.querySelector('#root')).render(
+            <GuGuDan/>
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <div id="result"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        'use strict';
+
+        class GuGuDan extends React.Component{
+            // constructor(props){
+            //     super(props);
+            //     this.state = {
+            //         first : Math.floor(Math.random()*9+1),
+            //         second : Math.floor(Math.random()*9+1),
+            //         value : '',
+            //         result : '',
+            //     };
+            // }
+
+            // 아래처럼 constructor 생성하지 않아도 괜찮음!
+            state = {
+                first : Math.floor(Math.random()*9+1),
+                second : Math.floor(Math.random()*9+1),
+                value : '',
+                result : '',
+            };
+            // 클래스의 메서드로 만들어주기!
+            // 주의!! <메서드를 만들 때는 화살표 함수로 만들어주어야 this의 범위가 바뀌지 않는다!!!!!!>
+            onSubmit = (e)=>{
+                e.preventDefault();
+                if (parseInt(this.state.value) === this.state.first * this.state.second){
+                    this.setState({
+                        result: '정답!',
+                        value: '',
+                        first: Math.floor(Math.random()*9+1),
+                        second: Math.floor(Math.random()*9+1),
+                    });
+                }else {
+                    this.setState({
+                        result: '땡!',
+                        value: '',
+                    });
+                }
+            }
+            onChange = (e) =>{
+                this.setState({value : e.target.value})
+            }
+            render() {
+                return(// 가짜태그 Fragment 활용하기!
+                    <React.Fragment>
+                        <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+                        <form onSubmit={this.onSubmit}>
+                            <input type="number" value={this.state.value} onChange={this.onChange}/>
+                            <button>입력</button>
+                        </form>
+                        <div>{this.state.result}</div>
+                    </React.Fragment>
+                );
+            }
+        }
+    </script>
+    <script type="text/babel">
+        ReactDOM.createRoot(document.querySelector('#root')).render(
+            <GuGuDan/>
+        );
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="question"></div>
+    <div id="root"></div>
     
     <div id="result"></div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -17,20 +17,7 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script type="text/babel">
         'use strict';
-        // let randomList = [];
-        // const randomNumber = () => {
-        //     randomList = [];
-        //     for (let i = 0; i < 2; i++) {
-        //         let number = Math.floor(Math.random()*9 + 1);
-        //         randomList.push(number);
-        //     }
-        // }
-        const Question = () => {
-            randomNumber();
-            return (
-                `${randomList[0]} 곱하기 ${randomList[1]}는?`
-            );
-        }
+
         const GuGuDan = () => {
             let [first,setFirst] = React.useState(Math.floor(Math.random()*9+1));
             let [second,setSecond] = React.useState(Math.floor(Math.random()*9+1));
@@ -63,7 +50,7 @@
         };
     </script>
     <script type="text/babel">
-        ReactDOM.createRoot(document.querySelector('#question')).render(
+        ReactDOM.createRoot(document.querySelector('#root')).render(
             <GuGuDan/>
         );
     </script>
