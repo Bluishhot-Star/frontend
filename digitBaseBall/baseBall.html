@@ -24,6 +24,7 @@
 </head>
 <body>
     <!-- <input type="button" value="팝업창 호출" /> -->
+    <div class="logs"> </div>
     <div class="main-container">
         <div class="head-container">
             <div class="head-wrapper">
@@ -75,11 +76,13 @@
         const $button = document.querySelector('.number-btn');
         const $order = document.querySelector('.order');
         const $next = document.querySelector('.next');
+        const $logs = document.querySelector('.logs');
         let order = 1;
         let success = false;
         const valueList = [$num1, $num2, $num3, $num4];
         const numberInput = [];
         const randomList = [];
+        const answers = [];
         const stageNumber = 1;
         const resultObject = {
             S : 0,
@@ -133,7 +136,7 @@
         });
         $button.addEventListener('click', (event)=> {
             if(numberInput.length == 4){
-                confirmNumber();
+                if(!confirmNumber()){return;}
                 let number = numberInput.join('');
                 for (let i = 0; i <= 3; i++) {
                     console.log(i);
@@ -141,7 +144,9 @@
                     valueList[i].parentElement.classList.remove("open");
                     numberInput.pop();
                 }
-                show(`${number} => ${resultObject.S}S ${resultObject.B}B`);
+                let log = `${number} => ${resultObject.S}S ${resultObject.B}B`;
+                show(log);
+                $logs.append(log,' ');
                 $next.classList.add("exist");
                 $next.classList.remove("none");
                 if (resultObject.S == 4) {
@@ -193,6 +198,15 @@
         const confirmNumber = () => {
             console.log(numberInput);
             console.log(randomList);
+            if(answers.includes(numberInput.join(''))){
+                show('이미 입력한 숫자열입니다');
+                for(let i=0;i<4;i++){numberInput.pop();}
+                updateNumber();
+                setTimeout(() => {
+                        show(textList[1]);
+                    },  3000);
+                return false;
+            }
             resultObject.S = 0;
             resultObject.B = 0;
             for (let i = 0; i < 4; i++) {
@@ -207,7 +221,9 @@
                 }
             }
             order += 1;
+            answers.push(numberInput.join(''))
             console.log(resultObject);
+            return true;
         };
         const Start = () => {
             show(textList[0]);

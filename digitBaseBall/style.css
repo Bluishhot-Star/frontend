@@ -42,6 +42,13 @@ html, body{
     text-align: center;
     font-size: 3.3vh;
 }
+.logs{
+    position:fixed;
+    width: 15%;
+    left: 0;
+    top: 25vh;
+    color: #fff;
+}
 .input-container{
     height: 60%;
 }

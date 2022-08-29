@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form"> 
+        <input type="text" id="input"/>
+        <button>확인</button>
+    </form>
+    <div id="notice"></div>
+    <div id="logs"></div>
+    <script>
+        // input이 있을 때에는 form으로 감싸는 것이 표준에 더 맞다!
+
+
+
+
+        const $input = document.querySelector("#input");
+        const $form = document.querySelector("#form");
+        const $logs = document.querySelector("#logs");
+        const $notice = document.querySelector("#notice");
+        let text = '';
+        const numbers = [];
+        let end = false;
+        for (let i = 0; i < 9; i++){
+            numbers.push(i+1);
+        }
+        const answers = [];
+        for (let i = 0; i < 4; i++) {
+            let index = Math.floor(Math.random()*(numbers.length -1));
+            answers.push(numbers[index]);
+            numbers.splice(index, 1);
+        }
+        
+        const tries = [];
+        function checkInput(input){
+            if (input.length !== 4){ // 현재 input이 4글자인지 확인
+                text = '4글자를 입력해주세요';
+                return false;
+            }
+            if (new Set(input).size !== 4) { //new Set() -> 집합!, 중복 제거용
+                text = '중복되지 않은 숫자를 입력해주세요';
+                return false;
+            }
+            if (tries.includes(input)) { // 이미 입력한 것인지 확인
+                text = '이미 입력한 숫자열입니다';
+                return false;
+            }
+            text = ' ';
+            return true;
+        }
+        function homeRun(value){
+            if(tries.length >= 10){
+                text = `실패! 정답은 ${answers.join('')}`;
+                end = true;
+                return;
+            }
+            else if(answers.join('') === value){
+                text = '홈런!'
+                end = true;
+                return;
+            }
+        }
+        function countStrike(value){
+            let count = {S:0, B:0};
+            for (let i = 0; i < 4; i++) {
+                if (answers[i] == value[i]){count.S += 1}
+                else if(answers.includes(parseInt(value[i]))){count.B += 1}
+            }
+            return `S${count.S}B${count.B}`;
+        }
+        $form.addEventListener('submit',(event)=>{
+            console.log(answers);
+            event.preventDefault();
+            if(end){ //만약 게임이 끝난 경우
+                return;
+            }
+            let value = $input.value;
+            $input.value = '';
+            if(!checkInput(value)){
+                $notice.textContent = text;
+                return;
+            }
+
+            //입력값 문제X
+            tries.push(value);
+            homeRun(value);
+            // append()는 요소와 문자열을 함께 인자로 넣을 수 있다.
+            $logs.append( document.createElement('br'),`[${tries.length}] ${tries [tries.length-1]} => ${countStrike(value)}`);
+            $notice.textContent = text;
+        })
+
+       
+
+    </script>
+</body>
+</html>
