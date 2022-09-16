@@ -1,0 +1,29 @@
+
+
+*{ 
+  box-sizing: border-box;
+}
+h1{
+  all: unset;
+}
+
+.black-nav  {
+  display: flex;
+  background: rgb(241, 167, 41);
+  width: 100%;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  padding-left: 1rem;
+}
+.list {
+  border-bottom: 1px solid #000;
+  text-align: left;
+  padding:0 1rem;
+}
+
+.Date {
+  font-size: 0.6rem;
+  text-align: right;
+}
