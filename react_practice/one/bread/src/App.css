@@ -17,7 +17,7 @@ h1, h4, p{
   padding-left: 1rem;
 }
 .title-container { 
-  background:rgb(165, 165, 165);
+  background:#a5a5a5;
   padding: 1rem;
   display: flex;
   justify-content: space-between;

@@ -1,0 +1,102 @@
+*{
+    box-sizing: border-box;
+  }
+  html{
+    background: #fff;
+    padding: 20px;
+  }
+  body{
+    position: relative;
+    border: 12px solid #000;
+    border-radius: 40px;
+    background: #fff;
+    width: 350px;
+    height: 756px;
+  }
+  .border{
+    position:absolute;
+    top: -12px;
+    left: -12px;
+    border: 12px solid #000;
+    border-radius: 40px;
+    width: 350px;
+    height: 756px;
+    z-index: 1000;
+  }
+  .color1{background:rgb(255, 151, 151);}
+  .color2{background:rgb(184, 184, 255);}
+  .color3{background:rgb(255, 255, 255);}
+  .color4{background:rgb(255, 255, 183);}
+  .color5{background:rgb(209, 159, 255);}
+  .container { 
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 2fr 6fr 2fr 2fr 0.5fr;
+    grid-gap: 15px;
+    padding: 30px 40px 50px 40px;
+    overflow: scroll;
+  }
+  .item {
+    padding: 10px;
+    display: flex;
+    border-radius: 10px;
+    justify-content: start;
+    align-items: start;
+    font-weight: bold;
+    box-shadow: inset 0px -2px 3px rgba(22, 22, 22, 0.4);
+    font-size: 1.2rem;
+  }
+  
+  .item0, .item3 {
+    /* grid-column-start: 1;
+    grid-column-end: 5; */
+    grid-column: 1 / 5;
+  }
+  .item1{
+    box-shadow: inset 0px -2px 3px rgba(22, 22, 22, 0.4);
+    
+    grid-column-start:1 ;
+    grid-column-end: 3;
+  }
+  .item2{
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+  .top-container{
+    background: #666;
+    display: flex;
+    position: relative;
+    height: 7vh;
+  }
+  .nav1{
+    background: #333;
+    width: 89%;
+    height: 100%;
+    border-top-right-radius: 2vh;
+  }
+  .nav2-container{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 11%;
+    background: #333;
+  }
+  .nav2 {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border-radius:0 0 50% 50%;
+    background: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon {
+    background: #fff;
+    box-shadow: inset 0 -2px 5px rgba(22, 22, 22, 0.4);
+    border-radius: 50%;
+    width: 70%;
+    height: 70%;
+  }
