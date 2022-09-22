@@ -10,6 +10,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
 @media screen and (max-width: 600px) {
   *{
     box-sizing: border-box;
@@ -20,11 +26,6 @@
     height: 100vh;
     margin: 0;
   }
-
-  .color2{background:rgb(184, 184, 255);}
-  .color3{background:rgb(255, 255, 255);}
-  .color4{background:rgb(255, 255, 183);}
-  .color5{background:rgb(209, 159, 255);}
 
   /* nav top */
   .App{
@@ -48,6 +49,7 @@
     border-radius: 0 0 15px 15px;
     text-align: right;
   }
+  
   .nav{
     position: fixed;
     width: 100vw;
@@ -76,7 +78,7 @@
     right: 1rem;
     bottom: 0;
   }
-  .container-page0 { 
+  .item-container-page0 { 
     overflow-x: scroll;
     background: rgb(250, 250, 250);
     height: 100%;
@@ -122,6 +124,132 @@
     grid-column-end: 5;
   }
 
+  /* page-1  */
+  .item-container-page1 { 
+    background: rgb(250, 250, 250);
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 2fr 1fr 2fr 1fr;
+    grid-gap: 20px;
+    padding: 10vh 20px 50px 20px;
+  }
+  /* page-2  */
+  .item-container-page2 { 
+    background: rgb(250, 250, 250);
+    height: 100vh;
+    overflow: scroll;
+    padding: 10vh 20px 50px 20px;
+  }
+  .diag-top-container{
+    height: 13vh;
+    text-align: center;
+    font-family: 'EliceDigitalBaeum-Bd';
+    font-size: 2rem;
+  }
+  .diag-sorting-container{
+    border-top: 1px solid #ccc;
+    margin: 2vh 0;
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .diag-sorting{
+    height: 2.5vh;
+    width: 25vw;
+    font-size: 1rem;
+    font-family: 'Pretendard-Regular';
+    background:#ff5100;
+    color: #fff;
+    border-radius: 1vh;
+    line-height: 1.4rem;
+    padding: 0 2px;
+  }
+  .diag-list-container{
+    height: 13vh;
+    margin-bottom: 2rem;
+  }
+  .diag-list{
+    position: relative;
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .date{
+    font-size: 2rem;
+    font-family: 'Pretendard-Regular';
+    font-weight: bold;
+  }
+  .info-container{
+    font-family: 'Pretendard-Regular';
+  }
+  .icon-star{
+    position: absolute;
+    right: 3%;
+    top: 10%;
+    color: #aaa;
+  }
+  .starOn{color: gold;}
+
+
+  /* dogProfile */
+  .dogProfile-logo{
+    padding-top: 3.5vh;
+    height: 10vh;
+    width: 100%;
+    background: #ff5100;
+    color: #fff;
+    font-family: 'EliceDigitalBaeum-Bd';
+    font-size: 2rem;
+    text-align: center;
+  }
+  .dogProfile-page-container{
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    overflow: scroll;
+    padding: 0 15vw;
+    flex-wrap: wrap;
+  }
+  .dogProfile-container{
+    width: 33vw;
+    height: 15vh;
+    flex-shrink: 1;
+    margin: 20px 0;
+    transition: 0.2s;
+  }
+  
+  .dogProfile-image{
+    width: 33vw;
+    height: 15vh;
+    background: #eee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    transform: scale(100%);
+    transition: transform 0.3s;
+  }
+  .dogProfile-image:active{
+    transform: scale(85%);
+  }
+  .dogProfile-name{
+    /* background: #aaa; */
+    margin: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: 'Pretendard-Regular';
+  }
+
+
+
   /* item style */
   .ad{
     background: #eee;
@@ -148,17 +276,124 @@
   .icon-user{
     font-size: 1.2rem;
   }
+  .icon-exclamation{
+    color: rgb(255,75,75);
+  }
+  .icon-popUp-X{
+    position: absolute;
+    right: 4vw;
+  }
+  .icon-plusSquare{
+    font-size: 3rem;
+  }
 
   .visible{
     transition: 0.5s;
     opacity: 1;
   }
-  .test{
-    position: absolute;
-    background: #000;
+
+  /* popUp */
+  .popUp-background{
+    position:fixed;
+    top: 0;
     width: 100vw;
     height: 100vh;
-    top: 0;
-    right: -10vw;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
   }
+  .popUp-container{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    background: rgba(255, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 
+      inset 0px -2px 3px rgba(22, 22, 22, 0.4),
+      0px 2px 10px rgba(118, 118, 118, 0.4);
+    width: 80%;
+    height: 25%;
+    border-radius: 10px;
+  }
+  .popUp-title-container{
+    font-family: 'EliceDigitalBaeum-Bd';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+  }
+  .popUp-text-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    font-weight: 400;
+    white-space: pre-wrap;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .popUp-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    border-top: 1px solid #ccc;
+  }
+  .popUp-btn-container button{
+    all: unset;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  .popUp-btn-container button:active{
+    background: #eee;
+  }
+  .popUp-btn-container .popUp-btn-left{border-right: 1px solid #ccc; color: #aaa; border-radius: 0 0 0 10px;}
+  .popUp-btn-container .popUp-btn-right{color: rgb(255, 75, 75);border-radius: 0 0 10px 0;}
+  .popUp-btn-text{text-align: center;}
+
+
+  /* Emergency Taxi popUp */
+  .emergency-popUp-title-container{
+    font-family: 'EliceDigitalBaeum-Bd';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+  }
+  .emergency-popUp-text-container{
+    color: rgb(255,75,75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    font-weight: 700;
+    white-space: pre-wrap;
+    text-align: center;
+    font-size: 1rem;
+  }
+  .emergency-popUp-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    border-top: 1px solid #ccc;
+  }
+  .emergency-popUp-btn-container button{
+    all: unset;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  .emergency-popUp-btn-container button:active{
+    background: #eee;
+  }
+  .emergency-popUp-btn-container .popUp-btn-right{border-radius: 0 0 10px 0;}
+  .emergency-popUp-btn-container .popUp-btn-left{border-right: 1px solid #ccc; border-radius: 0 0 0 10px;}
 }
