@@ -1,0 +1,97 @@
+html{
+  background: #dbdfe8;
+}
+div {
+  box-sizing: border-box;
+}
+.App{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+}
+.wrap{
+  max-width: 600px;
+  min-height: 100vh;
+  background: #e2ebf7;
+}
+.nav-container {
+  min-width: 400px;
+
+}
+.nav{
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  background: #437299;
+  padding: 0 10px;
+}
+.logo-container{
+  margin-right: 10px;
+  width: 2rem;
+  height: 100vh;
+}
+.logo{
+  width: 100%;
+  height: 100%;
+}
+.nav h1{
+  color: #eee;
+}
+
+/** music list */
+.music-list-container{
+  width: 100%;
+}
+.music-list{
+  display: flex;
+  width: 100%;
+  height: 5.5rem;
+  border-bottom: 5px solid #dbdfe8;
+  padding: 10px 0;
+}
+.music-type{
+  width: 4rem;
+  height: 4rem;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.music-type-img{
+  width: 3rem;
+  height: 3rem;
+}
+.music-type-desc{
+  font-size: 0.8rem;
+}
+
+.music-info-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.music-info{
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.music-info h3{
+  all: unset;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: block;
+}
+
+
+.music-stream-container{
+  display: flex;
+  width: 100px;
+  margin-right: 10px;
+  align-items: end;
+}
+.music-stream-container img{
+  width: 25px;
+  margin: 0 5px;
+}
