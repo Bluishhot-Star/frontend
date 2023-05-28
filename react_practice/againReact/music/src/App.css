@@ -10,6 +10,12 @@ div {
   flex-direction: column;
   align-items: center;
 }
+/* .hello{
+  width: 200px;
+  height: 50px;
+  color: #000;
+  background: #aaa;
+} */
 .wrap{
   max-width: 600px;
   min-height: 100vh;
@@ -21,6 +27,7 @@ div {
 }
 .nav{
   display: flex;
+  position: relative;
   align-items: center;
   height: 3rem;
   background: #437299;
@@ -29,7 +36,7 @@ div {
 .logo-container{
   margin-right: 10px;
   width: 2rem;
-  height: 100vh;
+  height: 100%;
 }
 .logo{
   width: 100%;
@@ -38,12 +45,103 @@ div {
 .nav h1{
   color: #eee;
 }
+.nav h3{
+  position: absolute;
+  right: 10px;
+  color: #437299;
+  padding: 2px;
+  display: inline-block;
+  background: #eee;
+  border-radius: 5px;
+}
+
+
 
 /** music list */
 .music-list-container{
   width: 100%;
 }
+.sorting-container{
+  display: flex;
+  padding: 5px 10px;
+  border-bottom: 5px solid #dbdfe8;
+}
+
+/** sorting-button */
+.sorting-container button{
+  all: unset;
+  background: #245d9b;
+  padding: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 60px;
+  text-align: center;
+  border-radius: 10px;
+  /* transition: all .1s ease-in-out .1s; */
+  margin-right: 10px;
+}
+.sorting-container button span{
+  display: block;
+  background: #245d9b;
+  z-index: 100;
+  position: relative;
+  border-radius: 10px;
+  transition: all .15s ease-in-out .15s;
+  color: #fff;
+}
+.sorting-container button:hover span {
+  background: #f79f24;
+  color: #fff;
+  transition: all .15s ease-in-out .15s;
+}
+.sorting-container button:hover span{
+  /* display: block; */
+  transition: all .15s ease-in-out .15s;
+}
+
+.sorting-container button:after {
+  bottom: -100%;
+  right: -100%;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #f79f24;
+  transition: all .2s ease-in-out .15s;
+
+}
+.sorting-container button:hover:after {
+  right: 0;
+  bottom: 0;
+  transition: all ease-in-out .2s;
+}
+.sorting-container button:before {
+  top: -100%;
+  left: -100%;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #f79f24;
+  transition: all .2s ease-in-out .15s;
+}
+.sorting-container button:hover:before {
+  left: 0;
+  top: 0;
+  transition: all ease-in-out .2s;
+}
+
+
+
+
+
+
+.sorting-container button:active{
+  box-shadow: 0px 0px 5px #f79f24;
+}
 .music-list{
+  cursor: pointer;
   display: flex;
   width: 100%;
   height: 5.5rem;
@@ -83,15 +181,83 @@ div {
   font-weight: bold;
   display: block;
 }
-
-
-.music-stream-container{
-  display: flex;
+.music-others-container{
   width: 100px;
   margin-right: 10px;
+}
+.music-thumbs-container{  
+  height: 50%;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 5px;
+}
+.music-thumbs-container span{
+  font-size: 0.8rem;
+  display: block;
+  cursor: pointer;
+  margin-left: 2px;
+}
+.thumbs span{
+  border-radius: 5px;
+  padding: 0 5px;
+  font-weight: bold;
+  color: #eef;
+  background: #99c;
+}
+.thumbs+span{
+  width: 25px;
+  text-align: center;
+  font-weight: bold;
+  color: #77f;
+}
+.music-stream-container{
+  display: flex;
+  width: 100%;
+  height: 50%;
   align-items: end;
 }
 .music-stream-container img{
   width: 25px;
   margin: 0 5px;
+}
+
+
+/** modal */
+.modal-container{
+  width: 100%;
+  height: 300px;
+  background: #dbdfe8;
+
+}
+.modal-container .bar{
+  width: 100px;
+  height: 10px;
+  background: #e4e4e4;
+  margin: 5px auto;
+  border-radius: 5px;
+}
+.modal{
+  color: #fff;
+  border-radius: 20px 20px 0 0;
+  background: #333;
+  width: 100%;
+  height: 100%;
+  padding: 5px 20px 0 20px;
+}
+.modal>div{
+  margin: 10px 0;
+  padding: 5px 0;
+  /* background: #ccc; */
+}
+.modal span{
+  margin-right: 10px;
+}
+.modal-inner-container{
+  font-size: 0.8rem;
+  display: block;
+  align-items: top;
+}
+.modal-inner-container div{
+  font-size: 1.5rem;
+  font-weight: bold;
 }
