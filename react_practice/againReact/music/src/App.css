@@ -10,20 +10,14 @@ div {
   flex-direction: column;
   align-items: center;
 }
-/* .hello{
-  width: 200px;
-  height: 50px;
-  color: #000;
-  background: #aaa;
-} */
 .wrap{
   max-width: 600px;
   min-height: 100vh;
   background: #e2ebf7;
+  position: relative;
 }
 .nav-container {
   min-width: 400px;
-
 }
 .nav{
   display: flex;
@@ -39,6 +33,7 @@ div {
   height: 100%;
 }
 .logo{
+  -webkit-user-select:none;
   width: 100%;
   height: 100%;
 }
@@ -46,6 +41,7 @@ div {
   color: #eee;
 }
 .nav h3{
+  -webkit-user-select:none;
   position: absolute;
   right: 10px;
   color: #437299;
@@ -53,8 +49,11 @@ div {
   display: inline-block;
   background: #eee;
   border-radius: 5px;
+  cursor: pointer;
 }
-
+.nav h3:active{
+  background: #437299;
+}
 
 
 /** music list */
@@ -93,10 +92,6 @@ div {
 .sorting-container button:hover span {
   background: #f79f24;
   color: #fff;
-  transition: all .15s ease-in-out .15s;
-}
-.sorting-container button:hover span{
-  /* display: block; */
   transition: all .15s ease-in-out .15s;
 }
 
@@ -147,6 +142,21 @@ div {
   height: 5.5rem;
   border-bottom: 5px solid #dbdfe8;
   padding: 10px 0;
+  position: relative;
+}
+.music-list .delete-list{
+  cursor: pointer;
+  position: absolute;
+  top: -2px;
+  right: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #245d9b;
+  transition: .2s;
+}
+.music-list .delete-list:hover{
+  color: #f79f24;
+
 }
 .music-type{
   width: 4rem;
@@ -227,7 +237,6 @@ div {
   width: 100%;
   height: 300px;
   background: #dbdfe8;
-
 }
 .modal-container .bar{
   width: 100px;
@@ -238,6 +247,7 @@ div {
 }
 .modal{
   color: #fff;
+  box-shadow: 0px 15px 10px 10px #a6a9b0;
   border-radius: 20px 20px 0 0;
   background: #333;
   width: 100%;
@@ -260,4 +270,122 @@ div {
 .modal-inner-container div{
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+
+/** INPUT */
+.input-container{
+  background: #437299;
+  padding: 10px 15px;
+  width: 400px;
+  box-shadow: 0px 15px 10px 10px #a6a9b0;
+}
+.input-title{
+  all: unset;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.input-container .new-music-form p{
+  margin: 10px 0 ;
+}
+.new-music-form {
+  width: 100%;
+  /* height: 25vh; */
+  display: grid;
+  grid-template-columns: 50px 200px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.new-music-form p{
+  display: inline-block;
+  font-weight: bold;
+}
+.new-music-form input{
+  all: unset;
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  background: none;
+}
+.new-music-form select{
+  display: inline-block;
+  font-size: 1rem;
+  background: none;
+  border: 1px solid #000;
+}
+.new-music-form select:focus{
+  outline: none;
+}
+.new-music-form textarea{
+  all: unset;
+  padding: 3px;
+  border: 1px solid #000;
+  display: inline-block;
+  max-height: 2rem;
+  min-width: 302px;
+  display: flex;
+  line-height: 2rem;
+  overflow:-moz-hidden-unscrollable;
+}
+.input-btn-container{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.input-btn-container button{
+  all: unset;
+  /* border: 1px solid #000; */
+  background: #437299;
+  width: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  padding: 2px;
+}
+.input-btn-container button span{
+  display: block;
+  background: #437299;
+  z-index: 100;
+  position: relative;
+  border-radius: 5px;
+  transition: all .15s ease-in-out .15s;
+}
+.input-btn-container button:hover span{
+  background: #f79f24;
+  transition: all .15s ease-in-out .15s;
+}
+.input-btn-container button:after{
+  bottom: -100%;
+  right: -100%;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #f79f24;
+  transition: all .2s ease-in-out .15s;
+}
+.input-btn-container button:hover:after{
+  bottom: 0;
+  right: 0;
+  transition: all ease-in-out .15s;
+}
+.input-btn-container button:before{
+  top: -100%;
+  left: -100%;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #f79f24;
+  transition: all .2s ease-in-out .15s;
+}
+.input-btn-container button:hover:before{
+  left: 0;
+  top: 0;
+  transition: all ease-in-out .15s;
 }
